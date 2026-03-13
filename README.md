@@ -1,5 +1,5 @@
 # dns-updator
-Small Python script for easily updating a DNS zone in CLI using the OVH API.\
+Small Python script for easily updating a DNS zone in CLI using the OVH API.
 
 ⚠️ This script is not production ready ! Please use this with care
 
