@@ -17,9 +17,10 @@ Create an API token on OVH : https://auth.eu.ovhcloud.com/api/createToken
 ```
 GET /me
 GET /domains/*
-PUT /domains/*
-POST /domains/*
-DELETE /domains/*
+GET /domains/zone/*
+PUT /domains/zone/*
+POST /domains/zone/*
+DELETE /domains/zone/*
 ```
 
 You can adjust the scopes with your preferences.
