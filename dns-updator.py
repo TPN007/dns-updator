@@ -80,6 +80,23 @@ def edit_record(dns_zone, subdomain, record_type, target):
     except ovh.exceptions.APIError as e:
         print(f"Erreur lors de la modification : {e}")
 
+def list_zones():
+    print("Affichage des zones disponibles : ")
+    print()
+
+    try:
+        zones = client.get('/domain/zone')
+
+        if not zones:
+            print("Aucune zone n'est disponible sur ce compte")
+            return None
+
+        for zone in zones:
+            print(f"- {zone}")
+    
+    except ovh.exceptions.APIError as e:
+        print(f"Erreur lors de l'affichage des zones : {e}")
+
 
 load_dotenv()
 
@@ -105,36 +122,40 @@ except ovh.exceptions.APIError as e:
 
 while check == 0:
     print("")
-    print("[1] Ajouter un record")
-    print("[2] Supprimer un record")
-    print("[3] Modifier un record")
-    print("[4] Quitter")
+    print("[1] Afficher la liste zones")
+    print("[2] Ajouter un record")
+    print("[3] Supprimer un record")
+    print("[4] Modifier un record")
+    print("[5] Quitter")
     print("")
 
     choix=int(input("Sélectionnez votre choix : "))
 
 
     if choix == 1:
+        list_zones()
+        check=1
+    elif choix == 2:
         dns_zone=input("Nom de la zone DNS : ")
         record_type=input("Type d'enregistrement ? [A/AAAA/CNAME/TXT/NS] : ")
         subdomain=input("Sous domaine : ")
         target=input("Cible (pensez au . à la fin pour un CNAME): ")
         add_record(dns_zone, record_type, subdomain, target)
         check=1
-    elif choix == 2:
+    elif choix == 3:
         dns_zone=input("Nom de la zone DNS : ")
         record_type=input("Type d'enregistrement ? [A/AAAA/CNAME/TXT/NS] : ")
         subdomain=input("Sous domaine : ")
         delete_record(dns_zone, record_type, subdomain)
         check=1
-    elif choix == 3:
+    elif choix == 4:
         dns_zone=input("Nom de la zone DNS : ")
         record_type=input("Type d'enregistrement ? [A/AAAA/CNAME/TXT/NS] : ")
         subdomain=input("Sous domaine : ")
         target=input("Nouvelle cible (pensez au . à la fin pour un CNAME): ")
         edit_record(dns_zone, subdomain, record_type, target)
         check=1
-    elif choix == 4:
+    elif choix == 5:
         print("Clôture du script...")
         exit(0)
     else:
